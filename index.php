@@ -1,3 +1,21 @@
+<?php
+	include('dbConnection.php');
+	include('components.php');
+
+	$pokemon = new stdClass();
+
+	if($_POST){
+		$pokemon->Nombre = $_POST['iNombre'];
+		$pokemon->Tipo = $_POST['iTipo'];
+		$pokemon->Peso = $_POST['iPeso'];
+		$pokemon->Experiencia = $_POST['iExperiencia'];
+		$pokemon->Color = $_POST['iColor'];
+		$pokemon->BatallasGanadas = $_POST['iBatallasGanadas'];
+		$pokemon->BatallasPerdidas = $_POST['iBatallasPerdidas'];
+
+		DB::insert('pokemon', $pokemon);
+	}
+?>
 <html>
 	<head>
 		<title>Pokemon</title>
@@ -5,7 +23,7 @@
 	</head>
 	<body>
 		<h1 class="text-center text-primary">Registro de Pokemon</h1>
-		<form role="form">
+		<form role="form" method="post">
 			<div class="col-md-12">
 				<div class="form-group col-md-3">
 					<label for="iNombre">Nombre:</label>
