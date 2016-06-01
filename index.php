@@ -15,7 +15,14 @@
 
 		DB::insert('pokemon', $pokemon);
 	}
+
+	if(isset($_GET['delete'])){
+		$id = $_GET['delete'] + 0;
+		DB::delete('Personas', $id);
+		header('location: Index.php');
+	}
 ?>
+
 <html>
 	<head>
 		<title>Pokemon</title>
@@ -23,15 +30,15 @@
 	</head>
 	<body>
 		<h1 class="text-center text-primary">Registro de Pokemon</h1>
-		<form role="form" method="post" autocomplete="off">
+		<form role="form" method="post" autocomplete="off" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
 			<div class="col-md-12">
 				<div class="form-group col-md-3">
 					<label for="iNombre">Nombre:</label>
-					<input type="text" class="form-control" id="iNombre" name="iNombre">
+					<input required type="text" class="form-control" id="iNombre" name="iNombre">
 				</div>
 				<div class="form-group col-md-3">
 					<label for="iTipo">Tipo:</label>
-					<select class="form-control" id="iTipo" name="iTipo">
+					<select required class="form-control" id="iTipo" name="iTipo">
 						<option></option>
 						<option value="Acero">Acero</option>
 						<option value="Agua">Agua</option>
@@ -57,36 +64,36 @@
 			<div class="col-md-12">
 				<div class="form-group col-md-3">
 					<label for="iPeso">Peso:</label>
-					<input type="number" class="form-control" id="iPeso" name="iPeso">
+					<input required type="number" class="form-control" id="iPeso" name="iPeso">
 				</div>
 				<div class="form-group col-md-3">
 					<label for="iExperiencia">Experiencia:</label>
-					<input type="number" class="form-control" id="iExperiencia" name="iExperiencia">
+					<input required type="number" class="form-control" id="iExperiencia" name="iExperiencia">
 				</div>
 			</div>
 			
 			<div class="col-md-12">
 				<div class="form-group col-md-2">
 					<label for="iColor">Color:</label>
-					<input type="text" class="form-control" id="iColor" name="iColor">
+					<input required type="text" class="form-control" id="iColor" name="iColor">
 				</div>
 				<div class="form-group col-md-2">
 					<label for="iBatallasGanadas">Batallas Ganadas:</label>
-					<input type="number" class="form-control" id="iBatallasGanadas" name="iBatallasGanadas">
+					<input required type="number" class="form-control" id="iBatallasGanadas" name="iBatallasGanadas">
 				</div>
 				<div class="form-group col-md-2">
 					<label for="iBatallasPerdidas">Batallas Perdidas:</label>
-					<input type="number" class="form-control" id="iBatallasPerdidas" name="iBatallasPerdidas">
+					<input required type="number" class="form-control" id="iBatallasPerdidas" name="iBatallasPerdidas">
 				</div>
 			</div>
 			<div class="col-md-12">
 				<div class="form-group col-md-6">
-					<button type="reset" class="btn btn-danger btn-block">Cancelar</button>
+					<button required type="reset" class="btn btn-danger btn-block">Cancelar</button>
 				</div>
 			</div>
 			<div class="col-md-12">
 				<div class="form-group col-md-6">
-					<button type="submit" class="btn btn-success btn-block">Guardar</button>
+					<button required type="submit" class="btn btn-success btn-block">Guardar</button>
 				</div>
 			</div>
 		</form>
@@ -115,6 +122,7 @@
 				$bPerdidas = $row->BatallasPerdidas;
 
 				$row->Porcentaje = calcularPorcentaje($bGanadas, $bPerdidas);
+				$row->X = "<a href=\"Index.php?delete={$row->Id}\"><span class=\"label label-danger\">Eliminar</span></a>";
 			}
 
 			$table = new table($pokemon);
