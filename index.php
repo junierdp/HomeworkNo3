@@ -23,7 +23,7 @@
 	</head>
 	<body>
 		<h1 class="text-center text-primary">Registro de Pokemon</h1>
-		<form role="form" method="post">
+		<form role="form" method="post" autocomplete="off">
 			<div class="col-md-12">
 				<div class="form-group col-md-3">
 					<label for="iNombre">Nombre:</label>
@@ -99,7 +99,12 @@
 
 			function calcularPorcentaje($bGanadas, $bPerdidas){
 				if($bGanadas > $bPerdidas){
-					$o = ($bGanadas / $bPerdidas) - 1;
+					$o = ($bGanadas - $bPerdidas) / $bGanadas;
+					$r = $o * 100;
+					return $r . '%';
+				}
+				if($bPerdidas > $bGanadas){
+					$o = ($bPerdidas - $bGanadas) / $bPerdidas;
 					$r = $o * 100;
 					return $r . '%';
 				}
