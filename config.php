@@ -3,5 +3,5 @@
 	define('DB_HOST','localhost:3307');  //define: define constante y valores
 	define('DB_NAME','registrop'); 
 	define('DB_USER','root'); 
-	define('DB_PASS','oniel2908'); 
+	define('DB_PASS','****'); 
 ?>
