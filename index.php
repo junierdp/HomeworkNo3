@@ -90,5 +90,30 @@
 				</div>
 			</div>
 		</form>
+		<?php
+			$pokemon = DB::show('pokemon');
+
+			$bGanadas = null;
+			$bPerdidas = null;
+			$porcentaje = null;
+
+			function calcularPorcentaje($bGanadas, $bPerdidas){
+				if($bGanadas > $bPerdidas){
+					$o = ($bGanadas / $bPerdidas) - 1;
+					$r = $o * 100;
+					return $r . '%';
+				}
+			}
+
+			foreach ($pokemon as $row) {
+				$bGanadas = $row->BatallasGanadas;
+				$bPerdidas = $row->BatallasPerdidas;
+
+				$row->Porcentaje = calcularPorcentaje($bGanadas, $bPerdidas);
+			}
+
+			$table = new table($pokemon);
+			echo $table;
+		?>
 	</body>
 </html>
